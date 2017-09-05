@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>旋转轮播图</title>
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+
+<body>
+    <!-- 主体内容开始 -->
+    <div class="mainbig-box">
+        <!-- 页头部分开始 -->
+        <header class="header">
+            <div class="container clearfix">
+                <span>jQuery.transform插件实现滚动轮播图</span>
+                <span>作者：Lander-xiong</span>
+            </div>
+        </header>
+        <section class="nav-lunbo container">
+            [1]滚动轮播图效果演示:
+        </section>
+        <!-- 页头部分结束 -->
+        <!-- 滚动轮播图开始 -->
+        <div class="mainbox">
+            <ul>
+                <li><img src="./images/1.jpg" alt=""></li>
+                <li><img src="./images/2.jpg" alt=""></li>
+                <li><img src="./images/3.jpg" alt=""></li>
+                <li><img src="./images/4.jpg" alt=""></li>
+            </ul>
+            <div class="butBox">
+                <a href="javascript:void(0)" class="butLeft">&lt;</a>
+                <a href="javascript:void(0)" class="butRight">&gt;</a>
+                <a href="javascript:void(0)" class="play">play</a>
+            </div>
+            <h2>jQuery.transform插件实现滚动轮播图</h2>
+        </div>
+        <!-- 滚动轮播图结束 -->
+        <section class="nav-lunbo container">
+            [2]HTML部分分解:
+        </section>
+
+        <div class="html-box container">
+            <pre>
+            <script type="text/html" id="html-box">
+            <div class="mainbox">
+                 <ul>
+                    <li><img src="./images/1.jpg" alt=""></li>
+                    <li><img src="./images/2.jpg" alt=""></li>
+                    <li><img src="./images/3.jpg" alt=""></li>
+                    <li><img src="./images/4.jpg" alt=""></li>
+                </ul>
+                <div class="butBox">
+                    <a href="javascript:void(0)" class="butLeft">&lt;</a>
+                    <a href="javascript:void(0)" class="butRight">&gt;</a>
+                    <a href="javascript:void(0)" class="play">play</a>
+                </div>
+                <h2>多图旋转</h2> 
+            </div>
+            //引包
+            <!-- 
+            <script src="./lib/jquery.min.js"></script>
+            <script src="./lib/jquery.transform-0.9.3.min_.js"></script>
+            <script src="./js/index.js"></script>
+            -->
+            </script> 
+           </pre>
+            <div class="html-box-right">
+                <h3>结构详解：</h3>
+                <p>滚动轮播图的结构主要有<i>4个部分组成</i>：</p>
+                <p>主体：有一个ul标签和4个li标签组成，每一个li标签都是一张图片，当点击切换时图片会滚动替换。</p>
+                <p>左右按钮：移入时变高亮，点击时控制图片替换的方向</p>
+                <p>Play按钮：当用户点击Play按钮时，图片会自动轮播，再点击是停止轮播。</p>
+                <p>H2标签：根据客户需要更改标题的内容</p>
+            </div>
+        </div>
+        <section class="nav-lunbo container">
+            [3]CSS部分分解:
+        </section>
+        <div class="css-box container">
+            <pre>
+            <script type="text/html" id="html-box">
+            .mainbox{
+                width: 1000px;
+                height: 400px;
+                margin: 10px auto;
+                overflow: hidden;
+                position: relative;
+                padding-top: 10px; 
+                background-color: #fff;
+            }
+            .mainbox ul li{
+                position: relative;
+                float: left;
+                list-style: none;
+                width: 250px;
+                height: 400px;
+                overflow: hidden;
+                border: 20px solid white;
+                margin-left: -40px;
+            }
+            .mainbox ul li img{
+                position: absolute;
+                /* top: 0px;
+                left: 0px; */
+            }
+            .mainbox h2{
+                position: absolute;
+                bottom: 80px;
+                right: 50px;
+                background-color: rgba(255, 255,255, .5)
+
+            }
+            .mainbox .butBox a{
+                display: block;
+                width: 30px;
+                height: 50px;
+                line-height: 50px;
+                text-align: center;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                color: white;
+                background-color: black;
+                opacity: 0.7;
+                text-decoration: none;
+            }
+            .mainbox:hover .butLeft,
+            .mainbox:hover .butRight{
+                opacity: 1;
+                background-color: orange;
+            }
+            .mainbox .butBox .butLeft{
+                left: 30px;
+            }
+            .mainbox .butBox .butRight{
+                right: 30px;
+            }
+            .mainbox .butBox .play{
+                width: 50px;
+                height: 20px;
+                line-height: 20px;
+                top: 14px;
+                left: 0px;
+            }
+            </script>
+           </pre>
+            <div class="html-box-right">
+                <h3>结构详解：</h3>
+                <p>样式组成思路：</p>
+                <p>1、先给父盒子一个宽高，定义好位置，给它一个相对定位，让子盒子可以参考定位。</p>
+                <p>2、li标签向左浮动，让li标签可以在同一排显示</p>
+                <p>3、给三个按钮和h标题进行绝对定位，调整好位置。</p>
+                <p>4、给父盒子一个hover事件，当移入时，左右按钮高亮。</p>
+            </div>
+        </div>
+        <section class="nav-lunbo container">
+            [4]JS部分分解:
+        </section>
+        <div class="js-box container">
+            <pre>
+            <script type="text/html" id="html-box">
+            var loopPlayInit = (function () {
+            var $butLeft = null,
+                $butRight = null,
+                $butPlay = null,
+                $imglist = null,
+                origin = ['125px', '600px'],
+                imgOrigin = ['125px', '800px'],
+                imgAll = createImg([['images/1.jpg', 'images/2.jpg', 'images/3.jpg', 
+                'images/4.jpg'], ['images/5.jpg', 'images/6.jpg', 'images/7.jpg', 
+                'images/8.jpg'], ['images/9.jpg', 'images/10.jpg', 'images/11.jpg',
+                 'images/12.jpg']]),
+                imgArrIndex = 0,
+                imgAng = 45,
+                imgTime = 300,
+                rotating = false,
+                autoTime = null,
+                autointerval = 3000;
+
+            function init() {
+                $butLeft = $('.butLeft'),
+                    $butRight = $('.butRight'),
+                    $butPlay = $('.play'),
+                    $imglist = $('.mainbox ul li');
+                //调整图片角度
+                configer();
+                //绑定点击事件bind
+                setEvent();
+
+            }
+            //调整图片角度函数
+            function configer() {
+                var ang = 5,
+                    aint = -5;
+                $imglist.transform({ origin: origin })
+                $imglist.each(function (i) {
+                    var $this = $(this);
+                    $this.transform({ rotate: aint + (i * ang) + "deg" });
+                })
+            }
+            //绑定点击按钮事件
+            function setEvent() {
+                $butLeft.bind('click', function () {
+                    anigo(-1);
+                })
+                $butRight.bind('click', function () {
+                    anigo(1);
+                })
+                $butPlay.bind('click', function () {
+
+                    var play = "play",
+                        pause = "pause",
+                        $but = $(this);
+                    if ($but.text() == "play") {
+                        $but.text(pause);
+                        autoG0();
+                    } else {
+                        $but.text(play);
+                        autoStop();
+                    }
+                    return false;
+                })
+            }
+            //把图片地址转化成图片image对象
+            function createImg(arr) {
+                var imgArr = [];
+                for (var i in arr) {
+                    imgArr[i] = [];
+                    for (var x in arr[i]) {
+                        imgArr[i][x] = new Image();
+                        imgArr[i][x].src = arr[i][x];
+                    }
+                }
+                return imgArr;
+            }
+            //创建轮播函数anigo
+            function anigo(d) {
+                imgArrIndex += d;
+                if (rotating) return false;
+                rotating = true;
+                if (imgArrIndex > imgAll.length - 1) {
+                    imgArrIndex = 0;
+                } else if (imgArrIndex < 0) {
+                    imgArrIndex = imgAll.length - 1;
+                }
+                $imglist.each(function (i) {
+                    var $thisItme = $(this);
+                    var $thisimg = $thisItme.children("img");
+                    var $targetImg = $(imgAll[imgArrIndex][i]);
+                    var thisTime = (d === 1) ? imgTime * i : imgTime * ($imglist
+                    .length - 1 - i);
+                    $thisItme.append($targetImg);
+                    $thisimg.transform({ origin: imgOrigin });
+                    $targetImg.transform({ origin: imgOrigin, rotate: (0 - d) * 
+                        imgAng + 'deg' });
+                    setTimeout(function () {
+                        $thisimg.animate({ rotate: imgAng * d + 'deg' });
+                        $targetImg.animate({ rotate: '0deg' }, 500, function () {
+                            $thisimg.remove();
+                            if (thisTime == (($imglist.length - 1) * imgTime)) {
+                                rotating = false;
+                            }
+                        });
+                    }, thisTime)
+
+                })
+            }
+
+            function autoG0() {
+                clearInterval(autoTime);
+                anigo(1);
+                autoTime = setInterval(function () {
+                    anigo(1);
+                }, autointerval);
+            }
+            function autoStop() {
+                clearInterval(autoTime);
+            }
+
+
+            return init;
+        })();
+        loopPlayInit();
+            </script>
+           </pre>
+            <div class="html-box-right">
+                <h3>结构详解：</h3>
+                <p>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br> 创建一个闭包（loopPlayInit），把所有定义的函数的变量，存放在这里，以便日后，修改相关内容。这样做的好处是，当多人开发一个项目的时候，可以避免变量名重名的问题。
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br> 创建init函数，用来绑定按钮以及定义初始状态的函数。
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br> 用transform插件调整初始样式，origin调整图片原点，rotate调整偏移的角度，遍历所有li标签，每个图片设置不同的角度。
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br> 设置左右两边以及play按钮的绑定事件，向左转时anigo(-1),向右转时anigo(1);点击Play按钮时，调用自动轮播方法。
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br> 遍历数组中的图片信息，用Image对象将数组里的图片地址，转化为img。
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br> 创建anigo轮播函数，参数为d，左转参数(-1),右转参数(-1)，步奏如下：
+                    <br>
+                    <br> ①遍历所有li标签，给每个添加img图片。
+                    <br>
+                    <br> ② 定义每张图片的延迟的时间，imgTime左右起始变量，判断d的值，使每张图片的滚动时间不一样。
+                    <br>
+                    <br> ③ 设置当前图片和即将旋转的图片的原点，使其偏移幅度不会太大。
+                    <br>
+                    <br> ④ 设置旋转时的角度，rotate(),当旋转是有动画的效果。
+                    <br>
+                    <br> ⑤ 添加setTimeout定时器，将图片的animate动画属性放入定时器容器中，在回调函数中，将之前的li标签属性删除，防止多张图片叠加在一起。
+                    <br>
+                    <br> 最后设置rotating属性，当等于true运行以下程序，否则跳出。
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br> 设置定时setInterval，当点击Play按钮时，启动定时器，开启动画。再次点击时，关闭定时器，停止动画。
+
+                </p>
+                <!-- <p>滚动轮播图的结构主要有<i>4个部分组成</i>：</p>
+                <p>主体：有一个ul标签和4个li标签组成，每一个li标签都是一张图片，当点击切换时图片会滚动替换。</p>
+                <p>左右按钮：移入时变高亮，点击时控制图片替换的方向</p>
+                <p>Play按钮：当用户点击Play按钮时，图片会自动轮播，再点击是停止轮播。</p>
+                <p>H2标签：根据客户需要更改标题的内容</p> -->
+            </div>
+            <canvas id="canvas" width="1000px" height="1990px"></canvas>
+        </div>
+    </div>
+    <!-- 主体内容结束 -->
+</body>
+
+</html>
+<script src="./lib/jquery.min.js"></script>
+<script src="./lib/jquery.transform-0.9.3.min_.js"></script>
+<script src="./js/index.js"></script>
+<script src="./js/canvas.js"></script>
+
+<!-- <script>
+    $('.yuan').click(function () {
+        $('.left').css('width', '0');
+        $('.right').css('width', '0');
+        $('.mainstart-left-content').hide();
+        $('.mainstart-right-content').hide();
+        $('.yuan').fadeOut();
+        setTimeout(function () {
+            $('.mainstart').fadeOut();
+            $('.mainbig-box').fadeIn();
+        }, 2000)
+    })
+
+</script> -->
